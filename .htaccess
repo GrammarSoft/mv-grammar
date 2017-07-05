@@ -1,0 +1,3 @@
+php_value include_path "/home/komma/php-inc/mvid-php"
+php_value display_errors 1
+php_value error_reporting -1

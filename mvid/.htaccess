@@ -1,0 +1,7 @@
+# The MV-ID files should be placed outside the web root, but just in case you don't...
+# If either fails due to missing module load, it should result in an error 500, which serves the purpose.
+# Apache >= 2.3
+Require all denied
+# Apache <= 2.2, or >= 2.3 with mod_access_compat
+Order Deny,Allow
+Deny from all
