@@ -1,9 +1,4 @@
 <?php
-if (empty($_SERVER['HTTPS'])) {
-	header('Location: https://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'], true, 301);
-	die();
-}
-
 require_once __DIR__.'/mvid_ai.php';
 $mv_has_comma = comma_check_access($mv_session_id, $mvid_shared_key);
 if (!$mv_has_comma) {
