@@ -3,6 +3,10 @@ $start = microtime(true);
 
 ob_start();
 require_once __DIR__.'/config.php';
+if (empty($_REQUEST['key']) || $_REQUEST['key'] !== $GLOBALS['-config']['DEBUG_KEY']) {
+	header('HTTP/1.1 403 DDoS Protection');
+	die();
+}
 
 // Assume everything is going to hell, until we can prove otherwise
 header('HTTP/1.1 500 Failed Selftest');
@@ -40,9 +44,9 @@ $out = trim($out);
 $stop = round(microtime(true) - $start, 3);
 if ($out === $tests[$k]) {
 	header('HTTP/1.1 200 OK');
-	echo "Selftest passed (port {$port}, {$stop}s)";
+	echo "Selftest passed ({$stop}s)";
 	die();
 }
 else {
-	echo "Selftest failed (port {$port}, {$stop}s): '{$out}' !== '{$tests[$k]}'";
+	echo "Selftest failed ({$stop}s): '{$out}' !== '{$tests[$k]}'";
 }

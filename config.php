@@ -1,6 +1,6 @@
 <?php
 
-$vars = ['DANPROOF_HOST', 'DANPROOF_PORT', 'MVID_SHARED_KEY', 'MVID_DOMAIN', 'MVID_ACCESS_IDS', 'GOOGLE_AID'];
+$vars = ['DEBUG_KEY', 'DANPROOF_HOST', 'DANPROOF_PORT', 'MVID_SHARED_KEY', 'MVID_DOMAIN', 'MVID_ACCESS_IDS', 'GOOGLE_AID'];
 foreach ($vars as $var) {
 	$env = getenv($var);
 	if (empty($_ENV[$var])) {
@@ -9,6 +9,7 @@ foreach ($vars as $var) {
 }
 
 $GLOBALS['-config'] = [];
+$GLOBALS['-config']['DEBUG_KEY'] = $_ENV['DEBUG_KEY'];
 $GLOBALS['-config']['DANPROOF_HOST'] = $_ENV['DANPROOF_HOST'] ?? 'localhost';
 $GLOBALS['-config']['DANPROOF_PORT'] = $_ENV['DANPROOF_PORT'] ?? 13400;
 $GLOBALS['-config']['MVID_SHARED_KEY'] = $_ENV['MVID_SHARED_KEY'];

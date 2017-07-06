@@ -1,9 +1,12 @@
 # MV-Nordic Grammatikforslag Frontend
 Requires at least PHP 7.0.
 
-The frontend is stateless and can be killed or launched at will.
+The frontend is stateless and can be killed or launched at will. Because of the sensitive information stored in the environment, there is no phpinfo() debug file.
+
+The frontend includes a health check in the form of selfcheck.php, which will send a random sentence to the backend and report back with a non-error status code if it’s working as expected.
 
 ## Environment Variables / App Settings
+* `DEBUG_KEY`	URL-safe string that can be passed to selftest.php?key= to get around DDoS protection; defaults to nothing, which means selftest is disabled
 * `DANPROOF_HOST`	Hostname for the backend; defaults to *localhost*
 * `DANPROOF_PORT`	TCP port that the backend is listening on; defaults to *13400*
 * `MVID_SHARED_KEY`	MV-ID shared key config entry
