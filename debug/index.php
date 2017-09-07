@@ -2,7 +2,7 @@
 
 header('Content-Type: text/plain; charset=UTF-8');
 
-echo "Grammatikforslag at commit f531c8f3c895c6ac09ccada7c436fc306ecee16d (r143) deployed on 2017-07-06 13:32:02\n\n";
+echo "Grammatikforslag at commit 2bf1c7d57b788a9c0287777079c18ad1b96352e4 (r147) deployed on 2017-09-07 15:52:55\n\n";
 
 echo "uptime:\n", shell_exec('uptime'), "\n";
 echo "free -h:\n", shell_exec('free -h'), "\n";

@@ -34,7 +34,7 @@ function file2attr($f) {
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 	<link rel="stylesheet" href="static/komma.css?v=30634b63">
-	<script src="static/komma.js?v=ea6b85b4"></script>
+	<script src="static/komma.js?v=4e1e48ec"></script>
 
 <script>
 var sid = '<?=$mv_session_id;?>';
@@ -94,7 +94,7 @@ function mvid_keepalive() {
 <div id="logo">
 	<div id="logo-back">
 		<div id="logo-back-left"></div>
-		<a href="./"><span>Grammatikforslag</span></a>
+		<a href="./"><span class="icon icon-logo"></span><span>Grammatikforslag</span></a>
 		<div id="logo-back-right"></div>
 	</div>
 </div>
@@ -106,7 +106,7 @@ function mvid_keepalive() {
 <div id="ed-head">
 <span class="button button-blue" id="btn-check"><span class="icon icon-check"></span><span class="text">Tjek teksten</span></span>
 <span class="button button-yellow" id="btn-correct-all"><span class="icon icon-approve-all"></span><span class="text">Godkend alle gule</span></span>
-<span tabindex="0" class="button button-blue" id="btn-options" data-toggle="popover" data-trigger="manual" data-content="&lt;h4&gt;Fejltyper&lt;/h4&gt;&lt;ul&gt; &lt;li&gt;&lt;label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;opt_onlyConfident&quot;&gt; Vis kun sikre fejl&lt;/label&gt;&lt;/li&gt; &lt;li&gt;&lt;label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;opt_ignUnknown&quot;&gt; Kritiser ikke ukendte ord&lt;/label&gt; &lt;ul&gt; &lt;li&gt;&lt;label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;opt_ignUNames&quot;&gt; Kritiser ikke ukendte navne&lt;/label&gt;&lt;/li&gt; &lt;li&gt;&lt;label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;opt_ignUComp&quot;&gt; Kritiser ikke ukendte komposita&lt;/label&gt;&lt;/li&gt; &lt;li&gt;&lt;label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;opt_ignUAbbr&quot;&gt; Kritiser ikke ukendte forkortelser&lt;/label&gt;&lt;/li&gt; &lt;li&gt;&lt;label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;opt_ignUOther&quot;&gt; Kritiser ikke andre ukendte ord&lt;/label&gt;&lt;/li&gt; &lt;/ul&gt; &lt;/li&gt; &lt;li&gt;&lt;label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;opt_ignMaj&quot;&gt; Kritiser ikke majuskel/minuskel-fejl&lt;/label&gt;&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Visning&lt;/h4&gt;&lt;ul&gt; &lt;li&gt;&lt;label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;opt_color&quot;&gt; Farveblind/alternativ visning&lt;/label&gt;&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Brugerordbog&lt;/h4&gt;&lt;ul&gt; &lt;li&gt;&lt;label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;opt_useDictionary&quot;&gt; Brug din ordbog&lt;/label&gt; &amp;nbsp; &lt;button type=&quot;button&quot; class=&quot;btn btn-sm btn-info&quot; id=&quot;btn-userdict-edit&quot; onclick=&quot;showUserdictEditor(); return false;&quot;&gt;Rediger din ordbog&lt;/button&gt;&lt;/li&gt;&lt;/ul&gt;&lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot; id=&quot;btn-options-close&quot;&gt;Luk&lt;/button&gt;" data-html="true" data-placement="bottom auto"><span class="icon icon-settings"></span><span class="text">Indstillinger</span></span>
+<span tabindex="0" class="button button-blue" id="btn-options" data-toggle="popover" data-trigger="manual" data-content="&lt;!--&lt;h4&gt;Fejltyper&lt;/h4&gt;&lt;ul&gt; &lt;li&gt;&lt;label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;opt_onlyConfident&quot;&gt; Vis kun sikre fejl&lt;/label&gt;&lt;/li&gt; &lt;li&gt;&lt;label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;opt_ignUnknown&quot;&gt; Kritiser ikke ukendte ord&lt;/label&gt; &lt;ul&gt; &lt;li&gt;&lt;label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;opt_ignUNames&quot;&gt; Kritiser ikke ukendte navne&lt;/label&gt;&lt;/li&gt; &lt;li&gt;&lt;label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;opt_ignUComp&quot;&gt; Kritiser ikke ukendte komposita&lt;/label&gt;&lt;/li&gt; &lt;li&gt;&lt;label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;opt_ignUAbbr&quot;&gt; Kritiser ikke ukendte forkortelser&lt;/label&gt;&lt;/li&gt; &lt;li&gt;&lt;label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;opt_ignUOther&quot;&gt; Kritiser ikke andre ukendte ord&lt;/label&gt;&lt;/li&gt; &lt;/ul&gt; &lt;/li&gt; &lt;li&gt;&lt;label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;opt_ignMaj&quot;&gt; Kritiser ikke majuskel/minuskel-fejl&lt;/label&gt;&lt;/li&gt;&lt;/ul&gt;--&gt;&lt;h4&gt;Visning&lt;/h4&gt;&lt;ul&gt; &lt;li&gt;&lt;label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;opt_color&quot;&gt; Farveblind/alternativ visning&lt;/label&gt;&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Brugerordbog&lt;/h4&gt;&lt;ul&gt; &lt;li&gt;&lt;label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;opt_useDictionary&quot;&gt; Brug din ordbog&lt;/label&gt; &amp;nbsp; &lt;button type=&quot;button&quot; class=&quot;btn btn-sm btn-info&quot; id=&quot;btn-userdict-edit&quot; onclick=&quot;showUserdictEditor(); return false;&quot;&gt;Rediger din ordbog&lt;/button&gt;&lt;/li&gt;&lt;/ul&gt;&lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot; id=&quot;btn-options-close&quot;&gt;Luk&lt;/button&gt;" data-html="true" data-placement="bottom auto"><span class="icon icon-settings"></span><span class="text">Indstillinger</span></span>
 <span tabindex="0" class="button button-blue button-small" id="btn-menu" data-toggle="popover" data-trigger="focus" data-content="&lt;a href=&quot;#&quot;&gt;&lt;span class=&quot;icon icon-info&quot;&gt;&lt;/span&gt;&lt;span&gt;Information&lt;/span&gt;&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;#&quot;&gt;&lt;span class=&quot;icon icon-inspire&quot;&gt;&lt;/span&gt;&lt;span&gt;Inspiration til undervisningen&lt;/span&gt;&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;#&quot; onclick=&quot;$('.mce-toolbar-grp').show(); onResize(); return false;&quot;&gt;&lt;span class=&quot;icon icon-format&quot;&gt;&lt;/span&gt;&lt;span&gt;Formatering af teksten&lt;/span&gt;&lt;/a&gt;&lt;br&gt;" data-html="true" data-placement="bottom auto"><span class="icon icon-menu"></span><span class="text">Mere</span></span>
 </div>
 <textarea placeholder="… indsæt eller skriv din tekst her …">
@@ -115,7 +115,7 @@ function mvid_keepalive() {
 <span class="button button-yellow" id="btn-close"><span class="icon icon-ignore"></span><span class="text">Genoptag skrivning</span></span>
 <span class="button button-blue" id="btn-copy"><span class="icon icon-copy"></span><span class="text">Kopier teksten</span></span>
 <!--
-<span class="button button-green" id="btn-transfer"><span class="icon icon-transfer"></span><span class="text">Skift til Grammatikforslag</span></span>
+<span class="button button-green" id="btn-transfer"><span class="icon icon-transfer"></span><span class="text">Skift til Kommaforslag</span></span>
 -->
 <span class="button button-red" id="btn-erase"><span class="icon icon-delete-all"></span><span class="text">Slet al tekst</span></span>
 </div>

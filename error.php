@@ -13,7 +13,13 @@
 
 <div id="container">
 <div id="headbar">
-<div id="logo"><span class="icon icon-logo"></span><span>Grammatikforslag</span></div>
+<div id="logo">
+	<div id="logo-back">
+		<div id="logo-back-left"></div>
+		<a href="./"><span class="icon icon-logo"></span><span>Grammatikforslag</span></a>
+		<div id="logo-back-right"></div>
+	</div>
+</div>
 </div>
 
 <div id="content">
