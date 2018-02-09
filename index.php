@@ -25,7 +25,7 @@ function file2attr($f) {
 	<meta name="keywords" content="grammatikontrol, stavekontrol, retskrivning, grammatik, stavning">
 	<meta name="description" content="Få orden i grammatikken med dette værktøj">
 	<meta property="og:locale" content="da_DK">
-	<title>Grammatikforslag - Avanceret stave- og grammatikkontrol</title>
+	<title>Grammateket - Avanceret stave- og grammatikkontrol</title>
 
 	<script src="https://cdn.tinymce.com/4.3/tinymce.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -34,7 +34,7 @@ function file2attr($f) {
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 	<link rel="stylesheet" href="static/komma.css?v=30634b63">
-	<script src="static/komma.js?v=4e1e48ec"></script>
+	<script src="static/komma.js?v=76a1a4e1"></script>
 
 <script>
 var sid = '<?=$mv_session_id;?>';
@@ -94,7 +94,7 @@ function mvid_keepalive() {
 <div id="logo">
 	<div id="logo-back">
 		<div id="logo-back-left"></div>
-		<a href="./"><span class="icon icon-logo"></span><span>Grammatikforslag</span></a>
+		<a href="./"><span class="icon icon-logo"></span><span>Grammateket</span></a>
 		<div id="logo-back-right"></div>
 	</div>
 </div>

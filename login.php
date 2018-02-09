@@ -9,7 +9,7 @@ $mv_has_comma = comma_check_access($mv_session_id, $mvid_shared_key);
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Grammatikforslag Login</title>
+	<title>Grammateket Login</title>
 
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:300,700|Open+Sans:400,300">
 	<link rel="stylesheet" href="static/login.css?<?=filemtime(__DIR__.'/static/login.css');?>">
@@ -47,7 +47,7 @@ $(function() {
 	doSSO(sso_args, function(res) {
 		if (res.app_auth_ok) {
 			if (!mv_has_comma) {
-				alert('Din brugerkonto har ikke adgang til Grammatikforslag - kontakt http://mv-nordic.com/');
+				alert('Din brugerkonto har ikke adgang til Grammateket - kontakt http://mv-nordic.com/');
 				return;
 			}
 			document.location = './';

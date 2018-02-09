@@ -1,4 +1,4 @@
-# MV-Nordic Grammatikforslag Frontend
+# MV-Nordic Grammateket Frontend
 Requires at least PHP 7.0.
 
 The frontend is stateless and can be killed or launched at will. Because of the sensitive information stored in the environment, there is no phpinfo() debug file.
@@ -9,6 +9,7 @@ The frontend includes a health check in the form of selfcheck.php, which will se
 * `DEBUG_KEY`	URL-safe string that can be passed to selftest.php?key= to get around DDoS protection; defaults to nothing, which means selftest is disabled
 * `DANPROOF_HOST`	Hostname for the backend; defaults to *localhost*
 * `DANPROOF_PORT`	TCP port that the backend is listening on; defaults to *13400*
+* `COMMA_URL`	Full URL to the Kommaforslag frontend. If defined, this enables users sending their text to the Kommaforslag service.
 * `MVID_SHARED_KEY`	MV-ID shared key config entry
 * `MVID_DOMAIN`	MV-ID domain config entry
 * `MVID_ACCESS_IDS`	Comma-separated list of AIs that grant access to this service; defaults to *product.web.da.grammarsuggestions.release*
