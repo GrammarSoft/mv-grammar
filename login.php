@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__.'/mvid_ai.php';
-$mv_has_comma = comma_check_access($mv_session_id, $mvid_shared_key);
+$mv_has_access = mvid_check_access($GLOBALS['mv-session-id']);
 
 ?>
 <!DOCTYPE html>
@@ -13,7 +13,7 @@ $mv_has_comma = comma_check_access($mv_session_id, $mvid_shared_key);
 
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:300,700|Open+Sans:400,300">
 	<link rel="stylesheet" href="static/login.css?<?=filemtime(__DIR__.'/static/login.css');?>">
-	<script src="<?=$mvid_url;?>/sp-js/mvlogin.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
 <body>
 
@@ -32,32 +32,64 @@ $mv_has_comma = comma_check_access($mv_session_id, $mvid_shared_key);
 </div>
 
 <script type="text/javascript">
-mvid_url = '<?=$mvid_url;?>';
-var mv_has_comma = <?=($mv_has_comma ? 'true' : 'false');?>;
+let mv_session_id = <?=json_encode_num($GLOBALS['mv-session-id']);?>;
+let access_hmac = <?=json_encode_num($GLOBALS['access-hmac']);?>;
+let mv_has_access = <?=($mv_has_access ? 'true' : 'false');?>;
+
+function doLogin() {
+	let uri = 'https://signon.vitec-mv.com/?returnUrl=';
+	let ret = window.location.origin + window.location.pathname;
+	if (window.location.search.indexOf('embedded=1') !== -1) {
+		ret += '?popup=1';
+		uri += encodeURIComponent(ret);
+		window.open(uri, 'mvid-signon');
+	}
+	else if (window.location.search.indexOf('popup=1') !== -1) {
+		ret += '?popup=1';
+		uri += encodeURIComponent(ret);
+		window.location = uri;
+	}
+	else {
+		uri += encodeURIComponent(ret);
+		window.location = uri;
+	}
+}
 
 $(function() {
-	if (mv_has_comma) {
+	if (mv_has_access) {
+		if (window.location.search.indexOf('popup=1') !== -1) {
+			console.log('Popup posting back');
+			window.opener.postMessage({sessionid: mv_session_id, hmac: access_hmac, access: mv_has_access}, '*');
+			window.opener.parent.postMessage({sessionid: mv_session_id, hmac: access_hmac, access: mv_has_access}, '*');
+			if (window.top === window) {
+				console.log('Popup closing itself');
+				window.close();
+			}
+			return;
+		}
+		if (window.location.search.indexOf('embedded=1') !== -1) {
+			console.log('IFrame posting back');
+			window.parent.postMessage({sessionid: mv_session_id, hmac: access_hmac, access: mv_has_access}, '*');
+			window.top.postMessage({sessionid: mv_session_id, hmac: access_hmac, access: mv_has_access}, '*');
+			return;
+		}
 		document.location = './';
 		return;
 	}
 
-	var sso_args = {
-		mv_session_id: '<?=$mv_session_id;?>'
+	if (mv_session_id && !mv_has_access && window.location.href.indexOf('SessionID=') !== -1) {
+		alert('Din brugerkonto har ikke adgang til Grammateket - kontakt http://mv-nordic.com/');
+		return;
 	}
-	doSSO(sso_args, function(res) {
-		if (res.app_auth_ok) {
-			if (!mv_has_comma) {
-				alert('Din brugerkonto har ikke adgang til Grammateket - kontakt http://mv-nordic.com/');
-				return;
-			}
-			document.location = './';
-		}
-		/*
-		else if (!res.mvid_auth_ok) {
-			doLogin();
-		}
-		//*/
-	});
+
+	if (window.location.search.indexOf('popup=1') !== -1) {
+		doLogin();
+		return;
+	}
+	if (window.location.search.indexOf('embedded=1') !== -1) {
+		doLogin();
+		return;
+	}
 });
 </script>
 

@@ -5,12 +5,6 @@ if (empty($_SERVER['HTTPS'])) {
 	die();
 }
 
-require_once __DIR__.'/mvid_ai.php';
-if (!comma_check_access($mv_session_id, $mvid_shared_key)) {
-	header('HTTP/1.1 403 Forbidden - check your MV-ID access');
-	die();
-}
-
 header('HTTP/1.1 400 Bad Request');
 $a = !empty($_REQUEST['a']) ? $_REQUEST['a'] : '';
 
@@ -20,6 +14,18 @@ if (!empty($_SERVER['HTTP_ORIGIN'])) {
 }
 header('Access-Control-Allow-Origin: '.$origin);
 
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+	header('HTTP/1.1 200 Options');
+	header('Access-Control-Allow-Headers: HMAC, *');
+	die();
+}
+
+require_once __DIR__.'/mvid_ai.php';
+if (!mvid_check_access($GLOBALS['mv-session-id'])) {
+	header('HTTP/1.1 403 Forbidden - check your MV-ID access');
+	die();
+}
+
 $start = microtime(true);
 $acl = null;
 $rv = [
@@ -27,7 +33,25 @@ $rv = [
 	'a' => $a,
 	];
 
+while ($a === 'keepalive') {
+	if (!$GLOBALS['hmac-fresh']) {
+		$rv['keepalive'] = mvid_keepalive($GLOBALS['mv-session-id']);
+		if (!$rv['keepalive']) {
+			$rv['e'][] = 'Could not keepalive session';
+			break;
+		}
+	}
+	$rv['hmac'] = $GLOBALS['access-hmac'];
+	$rv['sessionid'] = $GLOBALS['mv-session-id'];
+	break;
+}
+
 while ($a === 'danproof') {
+	if (empty($_SERVER['HTTP_HMAC'])) {
+		$rv['e'][] = 'Invalid or empty HMAC header!';
+		break;
+	}
+
 	if (preg_match_all('~<(STYLE:\w+:\w+)>~u', $_REQUEST['t'], $ms, PREG_SET_ORDER)) {
 		foreach ($ms as $m) {
 			// Shuffle whitespace from inside the style to outside the style
