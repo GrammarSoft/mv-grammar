@@ -2,6 +2,20 @@
 require_once __DIR__.'/mvid_ai.php';
 $mv_has_access = mvid_check_access($GLOBALS['mv-session-id']);
 
+$_REQUEST['channel'] = $_REQUEST['channel'] ?? '';
+if ($mv_has_access && !empty($_REQUEST['channel'])) {
+	require_once 'vendor/autoload.php';
+	$client = new \WebSocket\Client($GLOBALS['-config']['CADUCEUS_URL']);
+
+	$msg = ['a' => 'push-channel', 'name' => $_REQUEST['channel'], 'data' => [
+		'sessionid' => $GLOBALS['mv-session-id'],
+		'hmac' => $GLOBALS['access-hmac'],
+		]];
+	$msg['sig'] = hmac_sha256_b64($msg['a'].$msg['name'], $GLOBALS['-config']['CADUCEUS_SECRET']);
+	$msg = json_encode_num($msg);
+	$client->send($msg);
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="da">
@@ -35,17 +49,18 @@ $mv_has_access = mvid_check_access($GLOBALS['mv-session-id']);
 let mv_session_id = <?=json_encode_num($GLOBALS['mv-session-id']);?>;
 let access_hmac = <?=json_encode_num($GLOBALS['access-hmac']);?>;
 let mv_has_access = <?=($mv_has_access ? 'true' : 'false');?>;
+let channel = <?=json_encode_num($_REQUEST['channel']);?>;
 
 function doLogin() {
 	let uri = 'https://signon.vitec-mv.com/?returnUrl=';
-	let ret = window.location.origin + window.location.pathname;
+	let ret = window.location.origin + window.location.pathname + '?channel=' + channel;
 	if (window.location.search.indexOf('embedded=1') !== -1) {
-		ret += '?popup=1';
+		ret += '&popup=1';
 		uri += encodeURIComponent(ret);
 		window.open(uri, 'mvid-signon');
 	}
 	else if (window.location.search.indexOf('popup=1') !== -1) {
-		ret += '?popup=1';
+		ret += '&popup=1';
 		uri += encodeURIComponent(ret);
 		window.location = uri;
 	}
@@ -59,11 +74,16 @@ $(function() {
 	if (mv_has_access) {
 		if (window.location.search.indexOf('popup=1') !== -1) {
 			console.log('Popup posting back');
-			window.opener.postMessage({sessionid: mv_session_id, hmac: access_hmac, access: mv_has_access}, '*');
-			window.opener.parent.postMessage({sessionid: mv_session_id, hmac: access_hmac, access: mv_has_access}, '*');
+			if (window.opener) {
+				window.opener.postMessage({sessionid: mv_session_id, hmac: access_hmac, access: mv_has_access}, '*');
+			}
+			if (window.opener && window.opener.parent) {
+				window.opener.parent.postMessage({sessionid: mv_session_id, hmac: access_hmac, access: mv_has_access}, '*');
+			}
 			if (window.top === window) {
 				console.log('Popup closing itself');
 				window.close();
+				alert('Du er nu logget ind og kan lukke dette vindue.');
 			}
 			return;
 		}

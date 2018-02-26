@@ -1,6 +1,6 @@
 <?php
 
-$vars = ['DEBUG_KEY', 'DANPROOF_HOST', 'DANPROOF_PORT', 'COMMA_URL', 'MVID_SERVICE', 'MVID_SECRET', 'MVID_ACCESS_IDS', 'GOOGLE_AID'];
+$vars = ['DEBUG_KEY', 'DANPROOF_HOST', 'DANPROOF_PORT', 'COMMA_URL', 'MVID_SERVICE', 'MVID_SECRET', 'MVID_ACCESS_IDS', 'CADUCEUS_URL', 'CADUCEUS_SECRET', 'GOOGLE_AID'];
 foreach ($vars as $var) {
 	$env = getenv($var);
 	if (empty($_ENV[$var])) {
@@ -16,6 +16,8 @@ $GLOBALS['-config']['COMMA_URL'] = $_ENV['COMMA_URL'];
 $GLOBALS['-config']['MVID_SERVICE'] = $_ENV['MVID_SERVICE'] ?? 'grammateket';
 $GLOBALS['-config']['MVID_SECRET'] = $_ENV['MVID_SECRET'];
 $GLOBALS['-config']['MVID_ACCESS_IDS'] = $_ENV['MVID_ACCESS_IDS'] ?? 'product.web.da.grammarsuggestions.release';
+$GLOBALS['-config']['CADUCEUS_URL'] = $_ENV['CADUCEUS_URL'] ?? 'ws://localhost:3000/';
+$GLOBALS['-config']['CADUCEUS_SECRET'] = $_ENV['CADUCEUS_SECRET'] ?? gethostname();
 $GLOBALS['-config']['GOOGLE_AID'] = $_ENV['GOOGLE_AID'];
 
 $GLOBALS['-config']['MVID_ACCESS_IDS'] = explode(',', trim(preg_replace('[,+]', ',', preg_replace('~[\s\r\n\t]+~', ',', $GLOBALS['-config']['MVID_ACCESS_IDS'])), ','));

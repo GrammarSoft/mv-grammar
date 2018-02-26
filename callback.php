@@ -21,10 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 require_once __DIR__.'/mvid_ai.php';
-if (!mvid_check_access($GLOBALS['mv-session-id'])) {
-	header('HTTP/1.1 403 Forbidden - check your MV-ID access');
-	die();
-}
+$access = mvid_check_access($GLOBALS['mv-session-id']);
 
 $start = microtime(true);
 $acl = null;
@@ -46,10 +43,31 @@ while ($a === 'keepalive') {
 	break;
 }
 
+while ($a === 'login-channel') {
+	if (!empty($GLOBALS['access-hmac']) && !empty($GLOBALS['mv-session-id'])) {
+		$rv['e'][] = 'Already logged in';
+		break;
+	}
+
+	require_once 'vendor/autoload.php';
+	$client = new \WebSocket\Client($GLOBALS['-config']['CADUCEUS_URL']);
+
+	$msg = ['a' => 'create-channel', 'sig' => hmac_sha256_b64('create-channel', $GLOBALS['-config']['CADUCEUS_SECRET'])];
+	$msg = json_encode_num($msg);
+	$client->send($msg);
+	$msg = json_decode($client->receive(), true);
+	$rv['name'] = $msg['r'];
+	break;
+}
+
 while ($a === 'danproof') {
 	if (empty($_SERVER['HTTP_HMAC'])) {
 		$rv['e'][] = 'Invalid or empty HMAC header!';
 		break;
+	}
+	if (!$access) {
+		header('HTTP/1.1 403 Forbidden - check your MV-ID access');
+		die();
 	}
 
 	if (preg_match_all('~<(STYLE:\w+:\w+)>~u', $_REQUEST['t'], $ms, PREG_SET_ORDER)) {

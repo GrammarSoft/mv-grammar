@@ -13,10 +13,13 @@ The frontend includes a health check in the form of selfcheck.php, which will se
 * `MVID_SERVICE`	MV-ID service name; defaults to *grammateket*
 * `MVID_SECRET`	MV-ID secret
 * `MVID_ACCESS_IDS`	Comma-separated list of AIs that grant access to this service; defaults to *product.web.da.grammarsuggestions.release*
+* `CADUCEUS_URL`	WebSocket URL to the Caduceus message broker; defaults to *`ws://localhost:3000/`*
+* `CADUCEUS_SECRET`	Caduceus secret; defaults to the server's hostname
 * `GOOGLE_AID`	Google Analytics Property ID
 
 ## Embedded Dependencies
 This repo includes copies of:
+* `textalk/websocket`: https://github.com/Textalk/websocket-php - MIT license
 * `jquery-scrollintoview`: https://github.com/litera/jquery-scrollintoview - MIT license
 
 ## External Dependencies
