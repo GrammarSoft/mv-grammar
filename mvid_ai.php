@@ -47,8 +47,8 @@ function mvid_check_access($mv_session_id) {
 
 	if (!empty($GLOBALS['access-hmac'])) {
 		$data = json_decode($GLOBALS['access-hmac'], true);
-		if (!empty($data['s']) && !empty($data['h']) && $data['s'] >= time()) {
-			$hmac = hmac_sha256_b64("{$data['s']}-{$mv_session_id}", $secret);
+		if (!empty($data['c']) && !empty($data['s']) && !empty($data['h']) && $data['c'] === $GLOBALS['-config']['HMAC_SERVICE'] && $data['s'] >= time()) {
+			$hmac = hmac_sha256_b64("{$data['c']}-{$data['s']}-{$mv_session_id}", $secret);
 			if ($hmac === $data['h']) {
 				return true;
 			}
@@ -103,8 +103,8 @@ function mvid_check_access($mv_session_id) {
 		return false;
 	}
 
-	$data = ['s' => time() + 11*60];
-	$data['h'] = hmac_sha256_b64("{$data['s']}-{$mv_session_id}", $secret);
+	$data = ['s' => time() + 11*60, 'c' => $GLOBALS['-config']['HMAC_SERVICE']];
+	$data['h'] = hmac_sha256_b64("{$data['c']}-{$data['s']}-{$mv_session_id}", $secret);
 	$GLOBALS['access-hmac'] = json_encode_num($data);
 	setcookie('access-hmac', $GLOBALS['access-hmac'], time() + 10*60);
 	$GLOBALS['hmac-fresh'] = true;

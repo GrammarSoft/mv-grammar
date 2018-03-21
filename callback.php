@@ -1,10 +1,5 @@
 <?php
 
-if (empty($_SERVER['HTTPS'])) {
-	header('HTTP/1.1 403 HTTPS Required');
-	die();
-}
-
 header('HTTP/1.1 400 Bad Request');
 $a = !empty($_REQUEST['a']) ? $_REQUEST['a'] : '';
 
@@ -40,23 +35,6 @@ while ($a === 'keepalive') {
 	}
 	$rv['hmac'] = $GLOBALS['access-hmac'];
 	$rv['sessionid'] = $GLOBALS['mv-session-id'];
-	break;
-}
-
-while ($a === 'login-channel') {
-	if (!empty($GLOBALS['access-hmac']) && !empty($GLOBALS['mv-session-id'])) {
-		$rv['e'][] = 'Already logged in';
-		break;
-	}
-
-	require_once 'vendor/autoload.php';
-	$client = new \WebSocket\Client($GLOBALS['-config']['CADUCEUS_URL']);
-
-	$msg = ['a' => 'create-channel', 'sig' => hmac_sha256_b64('create-channel', $GLOBALS['-config']['CADUCEUS_SECRET'])];
-	$msg = json_encode_num($msg);
-	$client->send($msg);
-	$msg = json_decode($client->receive(), true);
-	$rv['name'] = $msg['r'];
 	break;
 }
 

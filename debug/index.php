@@ -2,7 +2,7 @@
 
 header('Content-Type: text/plain; charset=UTF-8');
 
-echo "Grammateket at commit 586fc7984ddf0fb9f7c5cdcf097cbad069aed2f1 (r151) deployed on 2018-02-26 13:33:16\n\n";
+echo "Grammateket at commit e083ea3a0dd7da6817bfcefb818e00c1e23a712c (r152) deployed on 2018-03-21 09:21:20\n\n";
 
 echo "uptime:\n", shell_exec('uptime'), "\n";
 echo "free -h:\n", shell_exec('free -h'), "\n";

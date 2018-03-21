@@ -82,8 +82,8 @@ $(function() {
 			}
 			if (window.top === window) {
 				console.log('Popup closing itself');
+				$('body').html('Du er nu logget ind og kan lukke dette vindue.');
 				window.close();
-				alert('Du er nu logget ind og kan lukke dette vindue.');
 			}
 			return;
 		}
