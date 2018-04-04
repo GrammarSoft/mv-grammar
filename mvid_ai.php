@@ -28,6 +28,11 @@ function mvid_keepalive($mv_session_id) {
 		'RequestDateTime: '.$stamp,
 		]);
 	$rv = curl_exec($ch);
+	if ($rv === false) {
+		$err = fopen('php://stderr', 'wb');
+		fprintf($err, 'CURL Error: %s', curl_error($ch));
+		return false;
+	}
 	$e = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 	curl_close($ch);
 
@@ -75,6 +80,11 @@ function mvid_check_access($mv_session_id) {
 		]);
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
 	$rv = curl_exec($ch);
+	if ($rv === false) {
+		$err = fopen('php://stderr', 'wb');
+		fprintf($err, 'CURL Error: %s', curl_error($ch));
+		return false;
+	}
 	$e = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 	curl_close($ch);
 
