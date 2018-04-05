@@ -116,7 +116,7 @@ function mvid_check_access($mv_session_id) {
 	$data = ['s' => time() + 11*60, 'c' => $GLOBALS['-config']['HMAC_SERVICE']];
 	$data['h'] = hmac_sha256_b64("{$data['c']}-{$data['s']}-{$mv_session_id}", $secret);
 	$GLOBALS['access-hmac'] = json_encode_num($data);
-	setcookie('access-hmac', $GLOBALS['access-hmac'], time() + 10*60);
+	setcookie('access-hmac', $GLOBALS['access-hmac'], time() + 10*60, '/', '', true);
 	$GLOBALS['hmac-fresh'] = true;
 	return true;
 }

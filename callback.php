@@ -8,6 +8,7 @@ if (!empty($_SERVER['HTTP_ORIGIN'])) {
 	$origin = trim($_SERVER['HTTP_ORIGIN']);
 }
 header('Access-Control-Allow-Origin: '.$origin);
+header('Access-Control-Allow-Credentials: true');
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 	header('HTTP/1.1 200 Options');
@@ -36,6 +37,56 @@ while ($a === 'keepalive') {
 	$rv['hmac'] = $GLOBALS['access-hmac'];
 	$rv['sessionid'] = $GLOBALS['mv-session-id'];
 	break;
+}
+
+while ($a === 'itw-dict') {
+	if (empty($GLOBALS['mv-session-id'])) {
+		$rv['e'][] = 'Invalid or empty session ID!';
+		break;
+	}
+	if (empty($_REQUEST['t'])) {
+		$rv['e'][] = 'Invalid or empty text!';
+		break;
+	}
+
+	require_once __DIR__.'/itw_proxy.php';
+
+	$ret = itw_dict($GLOBALS['mv-session-id'], $_REQUEST['t']);
+	if ($ret === false) {
+		$rv['e'][] = 'Invalid or empty result from IntoWords Dictionary!';
+		break;
+	}
+
+	header('HTTP/1.1 200 Ok');
+	header('Content-Type: application/json; charset=UTF-8');
+	echo $ret;
+
+	die(); // Not break
+}
+
+while ($a === 'itw-speak') {
+	if (empty($GLOBALS['mv-session-id'])) {
+		$rv['e'][] = 'Invalid or empty session ID!';
+		break;
+	}
+	if (empty($_REQUEST['t'])) {
+		$rv['e'][] = 'Invalid or empty text!';
+		break;
+	}
+
+	require_once __DIR__.'/itw_proxy.php';
+
+	$ret = itw_speak($GLOBALS['mv-session-id'], $_REQUEST['t']);
+	if ($ret === false) {
+		$rv['e'][] = 'Invalid or empty result from IntoWords TTS!';
+		break;
+	}
+
+	header('HTTP/1.1 200 Ok');
+	header('Content-Type: application/json; charset=UTF-8');
+	echo $ret;
+
+	die(); // Not break
 }
 
 while ($a === 'danproof') {
