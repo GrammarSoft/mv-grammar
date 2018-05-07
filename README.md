@@ -7,8 +7,10 @@ The frontend includes a health check in the form of selfcheck.php, which will se
 
 ## Environment Variables / App Settings
 * `DEBUG_KEY`	URL-safe string that can be passed to selftest.php?key= to get around DDoS protection; defaults to nothing, which means selftest is disabled
-* `DANPROOF_HOST`	Hostname for the backend; defaults to *localhost*
-* `DANPROOF_PORT`	TCP port that the backend is listening on; defaults to *13400*
+* `DANPROOF_HOST`	Hostname for the grammar backend; defaults to *localhost*
+* `DANPROOF_PORT`	TCP port that the grammar backend is listening on; defaults to *13400*
+* `COMMA_HOST`	Hostname for the comma backend; defaults to *localhost*
+* `COMMA_PORT`	TCP port that the comma backend is listening on; defaults to *13300*
 * `COMMA_URL`	Full URL to the Kommaforslag frontend. If defined, this enables users sending their text to the Kommaforslag service.
 * `MVID_SERVICE`	MV-ID service name; defaults to *grammateket*
 * `MVID_SECRET`	MV-ID secret
