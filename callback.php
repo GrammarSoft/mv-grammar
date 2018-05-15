@@ -39,6 +39,13 @@ while ($a === 'keepalive') {
 	break;
 }
 
+while ($a === 'logout') {
+	setcookie('mv-session-id', '', time() + 86400, '/', '', true);
+	setcookie('access-hmac', '', time() + 86400, '/', '', true);
+	$rv['logout'] = true;
+	break;
+}
+
 while ($a === 'itw-dict') {
 	if (empty($GLOBALS['mv-session-id'])) {
 		$rv['e'][] = 'Invalid or empty session ID!';
