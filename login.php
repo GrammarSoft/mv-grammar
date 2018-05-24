@@ -82,7 +82,7 @@ $(function() {
 			}
 			if (window.top === window) {
 				console.log('Popup closing itself');
-				$('body').html('Du er nu logget ind og kan lukke dette vindue.');
+				$('body').html('<div class="midmid"><div>Du er nu logget ind og kan lukke dette vindue.</div></div>');
 				window.close();
 			}
 			return;
