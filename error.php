@@ -4,10 +4,12 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Grammateket Login Error</title>
+	<title data-l10n="TITLE_LOGIN_ERROR">Grammateket Login Error</title>
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" href="static/komma.css?<?=filemtime(__DIR__.'/static/komma.css');?>">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="static/l10n.js"></script>
 </head>
 <body>
 
@@ -38,11 +40,11 @@ if (!empty($_REQUEST['error_message'])) {
 
 <div id="footbar">
 <div id="footer">
-<a href="https://www.mv-nordic.com/dk/privatlivspolitik">Privatlivspolitik</a>
+<a data-l10n-href="HREF_MV_PRIVACY" href="https://www.mv-nordic.com/dk/privatlivspolitik" data-l10n="LBL_PRIVACY">Privatlivspolitik</a>
 &nbsp; - &nbsp;
-<a href="https://grammarsoft.com/">© 2017 GrammarSoft ApS</a>
+<a href="https://grammarsoft.com/" data-l10n="LBL_COPYRIGHT">© 2017 GrammarSoft ApS</a>
 &nbsp; - &nbsp;
-<a href="https://www.mv-nordic.com/">Distribueret af MV-Nordic</a>
+<a href="https://www.mv-nordic.com/" data-l10n="LBL_DISTRIBUTED">Distribueret af MV-Nordic</a>
 </div>
 </div>
 

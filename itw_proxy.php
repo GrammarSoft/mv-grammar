@@ -2,6 +2,14 @@
 
 require_once __DIR__.'/mvid_ai.php';
 
+$GLOBALS['itw-dicts'] = [
+	'da' => 1, // Den Danske Ordbog (DDO)
+	'no' => 2, // Norsk bokmål
+	'nb' => 2, // Norsk bokmål
+	'nn' => 7, // Nynorsk
+	'sv' => 8, // Natur och Kulturs Stora Svenska Ordbok (NoK)
+	];
+
 function itw_curl($url, $rq) {
 	$rq = json_encode_num($rq);
 
@@ -34,6 +42,12 @@ function itw_curl($url, $rq) {
 }
 
 function itw_dict($sessionid, $text) {
+	$dict = 1;
+	$locale = mvid_locale();
+	if (!empty($locale) && !empty($GLOBALS['itw-dicts'][$locale])) {
+		$dict = $GLOBALS['itw-dicts'][$locale];
+	}
+
 	$rq = [
 		'type' => 'jsonwsp/request',
 		'version' => '1.0',
@@ -41,7 +55,7 @@ function itw_dict($sessionid, $text) {
 		'args' => [
 			'session_id' => $sessionid,
 			'searchString' => trim($text),
-			'dictID' => 1,
+			'dictID' => $dict,
 			],
 		];
 
@@ -65,10 +79,50 @@ function itw_dict($sessionid, $text) {
 		'methodname' => 'getArticle',
 		'args' => [
 			'session_id' => $sessionid,
-			'dictID' => 1,
+			'dictID' => $dict,
 			'word' => trim($rv['result']['value'][0]['Word']),
 			'key' => trim($rv['result']['value'][0]['Key']),
 			'settings' => null,
+			],
+		];
+
+	return itw_curl('https://dictionary.intowords.com/dictservice/DictionaryService/jsonwsp', $rq);
+}
+
+function itw_get_dicts($sessionid) {
+	$rq = [
+		'type' => 'jsonwsp/request',
+		'version' => '1.0',
+		'methodname' => 'getDictionaries',
+		'args' => [
+			'session_id' => $sessionid,
+			],
+		];
+
+	$rv = itw_curl('https://dictionary.intowords.com/dictservice/DictionaryService/jsonwsp', $rq);
+	if ($rv === false) {
+		header('X-ITW-GetDicts: CURL error');
+		return false;
+	}
+
+	$rv = json_decode($rv, true);
+	if (empty($rv['result']['value'])) {
+		header('X-ITW-GetDicts: Empty result');
+		return false;
+	}
+
+	return $rv['result']['value'];
+}
+
+function itw_search_dict($sessionid, $text, $dict=1) {
+	$rq = [
+		'type' => 'jsonwsp/request',
+		'version' => '1.0',
+		'methodname' => 'search',
+		'args' => [
+			'session_id' => $sessionid,
+			'searchString' => $text,
+			'dictID' => $dict,
 			],
 		];
 

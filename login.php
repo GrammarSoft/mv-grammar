@@ -23,11 +23,12 @@ if ($mv_has_access && !empty($_REQUEST['channel'])) {
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Grammateket Login</title>
+	<title data-l10n="TITLE_LOGIN">Grammateket Login</title>
 
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:300,700|Open+Sans:400,300">
 	<link rel="stylesheet" href="static/login.css?<?=filemtime(__DIR__.'/static/login.css');?>">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="static/l10n.js"></script>
 </head>
 <body>
 
@@ -38,10 +39,10 @@ if ($mv_has_access && !empty($_REQUEST['channel'])) {
 		<a href="#" onclick="doLogin();"><img src="static/key.png"></a>
 	</div>
 	<div id="pitch">
-		<a href="https://www.mv-nordic.com/"><span>Kontakt MV-Nordic</span> for at prøve programmet gratis eller for information om abonnement.<br>
+		<a href="https://www.mv-nordic.com/" data-l10n="TXT_PITCH_MVNORDIC"><span>Kontakt MV-Nordic</span> for at prøve programmet gratis eller for information om abonnement.<br>
 		(<em>gælder skoler, institutioner og virksomheder</em>)</a><br><br>
 
-		<a href="https://retmig.dk/">For privatlicenser, kontakt GrammarSoft på <span>retmig.dk</span></a>
+		<a href="https://retmig.dk/" data-l10n="TXT_PITCH_GRAMMARSOFT">For privatlicenser, kontakt GrammarSoft på <span>retmig.dk</span></a>
 	</div>
 </div>
 
@@ -82,7 +83,7 @@ $(function() {
 			}
 			if (window.top === window) {
 				console.log('Popup closing itself');
-				$('body').html('<div class="midmid"><div>Du er nu logget ind og kan lukke dette vindue.</div></div>');
+				$('body').html('<div class="midmid"><div>'+l10n.t('TXT_LOGIN_SUCCESS')+'</div></div>');
 				window.close();
 			}
 			return;
@@ -98,7 +99,7 @@ $(function() {
 	}
 
 	if (mv_session_id && !mv_has_access && window.location.href.indexOf('SessionID=') !== -1) {
-		alert('Din brugerkonto har ikke adgang til Grammateket - kontakt http://mv-nordic.com/');
+		alert(l10n.t('ERR_LOGIN_NOACCESS'));
 		return;
 	}
 

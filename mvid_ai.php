@@ -52,8 +52,10 @@ function mvid_check_access($mv_session_id) {
 
 	if (!empty($GLOBALS['access-hmac'])) {
 		$data = json_decode($GLOBALS['access-hmac'], true);
-		if (!empty($data['c']) && !empty($data['s']) && !empty($data['h']) && $data['c'] === $GLOBALS['-config']['HMAC_SERVICE'] && $data['s'] >= time()) {
-			$hmac = hmac_sha256_b64("{$data['c']}-{$data['s']}-{$mv_session_id}", $secret);
+		if (!empty($data['c']) && !empty($data['s']) && !empty($data['h']) && !empty($data['ai']) && $data['c'] === $GLOBALS['-config']['HMAC_SERVICE'] && $data['s'] >= time()) {
+			sort($data['ai']);
+			$s_ais = implode('|', $data['ai']);
+			$hmac = hmac_sha256_b64("{$data['c']}-{$data['s']}-{$mv_session_id}-{$s_ais}", $secret);
 			if ($hmac === $data['h']) {
 				return true;
 			}
@@ -101,24 +103,40 @@ function mvid_check_access($mv_session_id) {
 		return false;
 	}
 
-	$found = false;
+	$ais = [];
 	foreach ($rv as $r) {
 		if (in_array($r['AI'], $GLOBALS['-config']['MVID_ACCESS_IDS'])) {
-			$found = true;
-			break;
+			$ais[] = $r['AI'];
 		}
 	}
 
-	if (!$found) {
+	if (empty($ais)) {
 		return false;
 	}
 
-	$data = ['s' => time() + 11*60, 'c' => $GLOBALS['-config']['HMAC_SERVICE']];
-	$data['h'] = hmac_sha256_b64("{$data['c']}-{$data['s']}-{$mv_session_id}", $secret);
+	sort($ais);
+	$s_ais = implode('|', $ais);
+
+	$data = ['s' => time() + 11*60, 'c' => $GLOBALS['-config']['HMAC_SERVICE'], 'ai' => $ais];
+	$data['h'] = hmac_sha256_b64("{$data['c']}-{$data['s']}-{$mv_session_id}-{$s_ais}", $secret);
 	$GLOBALS['access-hmac'] = json_encode_num($data);
 	setcookie('access-hmac', $GLOBALS['access-hmac'], time() + 10*60, '/', '', true);
 	$GLOBALS['hmac-fresh'] = true;
+
 	return true;
+}
+
+function mvid_locale() {
+	$locale = 'da';
+	if (!empty($GLOBALS['access-hmac'])) {
+		$data = json_decode($GLOBALS['access-hmac'], true);
+		foreach ($data['ai'] as $ai) {
+			if (preg_match('~^product\.web\.(\w+)\.grammarsuggestions~', $ai, $m)) {
+				$locale = $m[1];
+			}
+		}
+	}
+	return $locale;
 }
 
 $GLOBALS['mv-session-id'] = '';

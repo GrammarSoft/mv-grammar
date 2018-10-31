@@ -3,7 +3,7 @@ FROM debian:stretch
 LABEL vendor="GrammarSoft ApS" \
 	maintainer="Tino Didriksen <mail@tinodidriksen.com>" \
 	com.grammarsoft.product="Grammateket Frontend" \
-	com.grammarsoft.codename="danproof-frontend"
+	com.grammarsoft.codename="grammar-frontend"
 
 ENV LANG=C.UTF-8 \
 	LC_ALL=C.UTF-8 \
@@ -27,7 +27,7 @@ RUN apt-get update && \
 	apt-get clean && \
 	rm -rf /var/lib/apt/lists/* && \
 	rm -rf /var/www/html/.git && \
-	echo "PassEnv DEBUG_KEY DANPROOF_HOST DANPROOF_PORT COMMA_URL MVID_SERVICE MVID_SECRET MVID_ACCESS_IDS CADUCEUS_URL CADUCEUS_SECRET GOOGLE_AID" > /etc/apache2/conf-enabled/passenv.conf && \
+	echo "PassEnv DEBUG_KEY GRAMMAR_HOST GRAMMAR_PORT COMMA_URL MVID_SERVICE MVID_SECRET MVID_ACCESS_IDS CADUCEUS_URL CADUCEUS_SECRET GOOGLE_AID" > /etc/apache2/conf-enabled/passenv.conf && \
 	ln -sf /dev/stderr /var/log/apache2/error.log && \
 	ln -sf /dev/stdout /var/log/apache2/access.log
 

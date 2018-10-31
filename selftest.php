@@ -35,8 +35,8 @@ bil
 
 $k = array_rand($tests);
 
-$port = $GLOBALS['-config']['DANPROOF_PORT'];
-$s = fsockopen($GLOBALS['-config']['DANPROOF_HOST'], $port);
+$port = $GLOBALS['-config']['GRAMMAR_PORT'];
+$s = fsockopen($GLOBALS['-config']['GRAMMAR_HOST'], $port);
 fwrite($s, $k."\n<END-OF-INPUT>\n");
 $out = stream_get_contents($s);
 $out = trim($out);

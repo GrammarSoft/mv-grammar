@@ -96,7 +96,7 @@ while ($a === 'itw-speak') {
 	die(); // Not break
 }
 
-while ($a === 'danproof') {
+while ($a === 'grammar') {
 	if (empty($_SERVER['HTTP_HMAC'])) {
 		$rv['e'][] = 'Invalid or empty HMAC header!';
 		break;
@@ -122,17 +122,17 @@ while ($a === 'danproof') {
 	$nonced = preg_replace('~<(/?s\d+)>~', '<$1-'.$nonce.'>', $_REQUEST['t']);
 
 	for ($try=0 ; $try < 3 ; ++$try) {
-		$port = $GLOBALS['-config']['DANPROOF_PORT'];
+		$port = $GLOBALS['-config']['GRAMMAR_PORT'];
 		//header('X-RetMig-Port: '.$port, false);
-		$s = fsockopen($GLOBALS['-config']['DANPROOF_HOST'], $port, $errno, $errstr, 1);
+		$s = fsockopen($GLOBALS['-config']['GRAMMAR_HOST'], $port, $errno, $errstr, 1);
 		if ($s === false) {
-			$e = json_encode_num([__LINE__, $errno, $GLOBALS['-config']['DANPROOF_HOST'], $port]);
+			$e = json_encode_num([__LINE__, $errno, $GLOBALS['-config']['GRAMMAR_HOST'], $port]);
 			header('X-RetMig-Error: '.$e, false);
 			continue;
 		}
 		//header('X-10-Connect: '.(microtime(true) - $start), false);
 		if (fwrite($s, $nonced."\n<END-OF-INPUT>\n") === false) {
-			$e = json_encode_num([__LINE__, $GLOBALS['-config']['DANPROOF_HOST'], $port]);
+			$e = json_encode_num([__LINE__, $GLOBALS['-config']['GRAMMAR_HOST'], $port]);
 			header('X-RetMig-Error: '.$e, false);
 			continue;
 		}
