@@ -40,11 +40,11 @@ if (!empty($_REQUEST['error_message'])) {
 
 <div id="footbar">
 <div id="footer">
-<a data-l10n-href="HREF_MV_PRIVACY" href="https://www.mv-nordic.com/dk/privatlivspolitik" data-l10n="LBL_PRIVACY">Privatlivspolitik</a>
+<a data-l10n-href="HREF_MV_PRIVACY" href="https://vitec-mv.com/dk/privatlivspolitik" data-l10n="LBL_PRIVACY">Privatlivspolitik</a>
 &nbsp; - &nbsp;
 <a href="https://grammarsoft.com/" data-l10n="LBL_COPYRIGHT">© 2017 GrammarSoft ApS</a>
 &nbsp; - &nbsp;
-<a href="https://www.mv-nordic.com/" data-l10n="LBL_DISTRIBUTED">Distribueret af MV-Nordic</a>
+<a href="https://vitec-mv.com/" data-l10n="LBL_DISTRIBUTED">Distribueret af Vitec MV</a>
 </div>
 </div>
 

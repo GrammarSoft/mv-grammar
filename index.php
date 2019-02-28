@@ -16,13 +16,12 @@
 <div id="pitch" class="welcome">
 	<div class="logo"><img src="static/login_grafik_02.png" data-l10n-alt="ALT_GRAMMAR_LOGO" alt="Grammateket's logo"></div>
 
-	<div><span data-l10n="TXT_INDEX_WHATIS">Grammateket er en tilføjelse til Google Docs, som støtter dig i din skriveproces<br>
-	ved at tjekke din tekst for stavning, grammatik og kommatering.</span>
+	<div><span data-l10n="TXT_INDEX_WHATIS">…</span>
 	<br><br>
 
 	<div class="table">
-		<div class="column"><a href="https://chrome.google.com/webstore/detail/grammateket/eabngcnhgmfiiojbblmnomjdpplajagl" class="badge"><img src="static/chrome-web-store.png" data-l10n-alt="ALT_LINK_GAS" alt="Link til Grammateket's Google Docs udvidelse"></a><div><a href="https://chrome.google.com/webstore/detail/grammateket/eabngcnhgmfiiojbblmnomjdpplajagl" data-l10n="LBL_LINK_GAS">Installer Grammateket som udvidelse til Google Docs &raquo;</a></div></div>
-		<div class="column"><a href="https://docs.google.com/" class="badge"><img src="static/google-drive.png" data-l10n-alt="ALT_LINK_GDOCS" alt="Link til Google Docs"></a><div><a href="https://docs.google.com/" data-l10n="LBL_LINK_GDOCS">Gå direkte til Google Docs for at åbne Grammateket &raquo;</a></div></div>
+		<div class="column"><a href="https://chrome.google.com/webstore/detail/grammateket/eabngcnhgmfiiojbblmnomjdpplajagl" class="badge"><img src="static/chrome-web-store.png" data-l10n-alt="ALT_LINK_GAS" alt="…"></a><div><a href="https://chrome.google.com/webstore/detail/grammateket/eabngcnhgmfiiojbblmnomjdpplajagl" data-l10n="LBL_LINK_GAS">…</a></div></div>
+		<div class="column"><a href="https://docs.google.com/" class="badge"><img src="static/google-drive.png" data-l10n-alt="ALT_LINK_GDOCS" alt="…"></a><div><a href="https://docs.google.com/" data-l10n="LBL_LINK_GDOCS">…</a></div></div>
 	</div>
 	<br><br>
 
@@ -32,12 +31,11 @@
 	</div>
 
 	<div id="pitch" class="spaced">
-		<a href="https://www.mv-nordic.com/" data-l10n="TXT_PITCH_MVNORDIC"><span>Kontakt MV-Nordic</span> for at prøve programmet gratis eller for information om abonnement.<br>
-		(<em>gælder skoler, institutioner og virksomheder</em>)</a><br><br>
+		<a href="https://vitec-mv.com/" data-l10n="TXT_PITCH_MVNORDIC">…</a><br><br>
 
-		<a href="https://retmig.dk/" data-l10n="TXT_PITCH_GRAMMARSOFT">For privatlicenser, kontakt GrammarSoft på <span>retmig.dk</span></a><br><br>
+		<a href="https://retmig.dk/" data-l10n="TXT_PITCH_GRAMMARSOFT">…</a><br><br>
 
-		<a href="https://www.mv-nordic.com/"><img src="static/login_grafik_03.png" data-l10n-alt="ALT_LINK_MVNORDIC" alt="Link til MV-Nordic"></a>
+		<a href="https://vitec-mv.com/"><img src="static/login_grafik_03.png" data-l10n-alt="ALT_LINK_MVNORDIC" alt="…"></a>
 	</div>
 </div>
 

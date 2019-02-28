@@ -1,6 +1,6 @@
 <?php
 
-$vars = ['DEBUG_KEY', 'GRAMMAR_HOST', 'GRAMMAR_PORT', 'COMMA_HOST', 'COMMA_PORT', 'COMMA_URL', 'MVID_SERVICE', 'MVID_SECRET', 'MVID_ACCESS_IDS', 'CADUCEUS_URL', 'CADUCEUS_SECRET', 'GOOGLE_AID'];
+$vars = ['DEBUG_KEY', 'GRAMMAR_DA_HOST', 'GRAMMAR_DA_PORT', 'GRAMMAR_NB_HOST', 'GRAMMAR_NB_PORT', 'GRAMMAR_SV_HOST', 'GRAMMAR_SV_PORT', 'COMMA_HOST', 'COMMA_PORT', 'COMMA_URL', 'MVID_SERVICE', 'MVID_SECRET', 'MVID_ACCESS_IDS', 'CADUCEUS_URL', 'CADUCEUS_SECRET', 'GOOGLE_AID'];
 foreach ($vars as $var) {
 	$env = getenv($var);
 	if (empty($_ENV[$var])) {
@@ -10,8 +10,12 @@ foreach ($vars as $var) {
 
 $GLOBALS['-config'] = [];
 $GLOBALS['-config']['DEBUG_KEY'] = $_ENV['DEBUG_KEY'];
-$GLOBALS['-config']['GRAMMAR_HOST'] = $_ENV['GRAMMAR_HOST'] ?? 'localhost';
-$GLOBALS['-config']['GRAMMAR_PORT'] = $_ENV['GRAMMAR_PORT'] ?? 13400;
+$GLOBALS['-config']['GRAMMAR_DA_HOST'] = $_ENV['GRAMMAR_DA_HOST'] ?? 'localhost';
+$GLOBALS['-config']['GRAMMAR_DA_PORT'] = $_ENV['GRAMMAR_DA_PORT'] ?? 13400;
+$GLOBALS['-config']['GRAMMAR_NB_HOST'] = $_ENV['GRAMMAR_NB_HOST'] ?? 'localhost';
+$GLOBALS['-config']['GRAMMAR_NB_PORT'] = $_ENV['GRAMMAR_NB_PORT'] ?? 13500;
+$GLOBALS['-config']['GRAMMAR_SV_HOST'] = $_ENV['GRAMMAR_SV_HOST'] ?? 'localhost';
+$GLOBALS['-config']['GRAMMAR_SV_PORT'] = $_ENV['GRAMMAR_SV_PORT'] ?? 13600;
 $GLOBALS['-config']['COMMA_HOST'] = $_ENV['COMMA_HOST'] ?? 'localhost';
 $GLOBALS['-config']['COMMA_PORT'] = $_ENV['COMMA_PORT'] ?? 13300;
 $GLOBALS['-config']['COMMA_URL'] = $_ENV['COMMA_URL'];

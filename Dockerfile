@@ -1,6 +1,6 @@
 FROM debian:stretch
 
-LABEL vendor="GrammarSoft ApS" \
+LABEL vendor="Vitec MV" \
 	maintainer="Tino Didriksen <mail@tinodidriksen.com>" \
 	com.grammarsoft.product="Grammateket Frontend" \
 	com.grammarsoft.codename="grammar-frontend"
@@ -13,7 +13,7 @@ ENV LANG=C.UTF-8 \
 COPY ./ /var/www/html/
 
 RUN apt-get update && \
-	apt-get install -y --no-install-recommends \
+	apt-get install -qfy --no-install-recommends \
 		apache2 \
 		libapache2-mod-php \
 		php-json \
@@ -27,7 +27,7 @@ RUN apt-get update && \
 	apt-get clean && \
 	rm -rf /var/lib/apt/lists/* && \
 	rm -rf /var/www/html/.git && \
-	echo "PassEnv DEBUG_KEY GRAMMAR_HOST GRAMMAR_PORT COMMA_URL MVID_SERVICE MVID_SECRET MVID_ACCESS_IDS CADUCEUS_URL CADUCEUS_SECRET GOOGLE_AID" > /etc/apache2/conf-enabled/passenv.conf && \
+	echo "PassEnv DEBUG_KEY GRAMMAR_DA_HOST GRAMMAR_DA_PORT GRAMMAR_NB_HOST GRAMMAR_NB_PORT GRAMMAR_SV_HOST GRAMMAR_SV_PORT COMMA_URL MVID_SERVICE MVID_SECRET MVID_ACCESS_IDS CADUCEUS_URL CADUCEUS_SECRET GOOGLE_AID HMAC_SERVICE" > /etc/apache2/conf-enabled/passenv.conf && \
 	ln -sf /dev/stderr /var/log/apache2/error.log && \
 	ln -sf /dev/stdout /var/log/apache2/access.log
 

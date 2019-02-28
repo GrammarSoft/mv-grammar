@@ -118,30 +118,44 @@ while ($a === 'grammar') {
 		}
 	}
 
+	preg_match('~\.(da|nb|sv)\.~', $GLOBALS['mv-ais'], $m);
+	$svc = 'GRAMMAR_'.strtoupper($m[1]);
+
 	$nonce = mt_rand();
-	$nonced = preg_replace('~<(/?s\d+)>~', '<$1-'.$nonce.'>', $_REQUEST['t']);
+	$nonced = '';
+	if (strpos($GLOBALS['mv-ais'], '.da.') !== false) {
+		$nonced = preg_replace('~<(/?s\d+)>~', '<$1-'.$nonce.'>', $_REQUEST['t']);
+	}
+	else {
+		// Remove s-tags for non-Danish, for now
+		preg_match('~<s(\d+)>~', $_REQUEST['t'], $m);
+		$nonce = $m[1];
+		$nonced = preg_replace('~<(/?s\d+)>~', '', $_REQUEST['t']);
+	}
 
 	for ($try=0 ; $try < 3 ; ++$try) {
-		$port = $GLOBALS['-config']['GRAMMAR_PORT'];
-		//header('X-RetMig-Port: '.$port, false);
-		$s = fsockopen($GLOBALS['-config']['GRAMMAR_HOST'], $port, $errno, $errstr, 1);
+		$port = $GLOBALS['-config'][$svc.'_PORT'];
+		header('X-Grammar-Port: '.$port, false);
+		$s = fsockopen($GLOBALS['-config'][$svc.'_HOST'], $port, $errno, $errstr, 1);
 		if ($s === false) {
-			$e = json_encode_num([__LINE__, $errno, $GLOBALS['-config']['GRAMMAR_HOST'], $port]);
-			header('X-RetMig-Error: '.$e, false);
+			$e = json_encode_num([__LINE__, $errno, $GLOBALS['-config'][$svc.'_HOST'], $port]);
+			header('X-Grammar-Error: '.$e, false);
 			continue;
 		}
-		//header('X-10-Connect: '.(microtime(true) - $start), false);
+		header('X-10-Connect: '.(microtime(true) - $start), false);
 		if (fwrite($s, $nonced."\n<END-OF-INPUT>\n") === false) {
-			$e = json_encode_num([__LINE__, $GLOBALS['-config']['GRAMMAR_HOST'], $port]);
-			header('X-RetMig-Error: '.$e, false);
+			$e = json_encode_num([__LINE__, $GLOBALS['-config'][$svc.'_HOST'], $port]);
+			header('X-Grammar-Error: '.$e, false);
 			continue;
 		}
-		//header('X-20-Write: '.(microtime(true) - $start), false);
+		header('X-20-Write: '.(microtime(true) - $start), false);
 		$output = stream_get_contents($s);
-		//header('X-30-Read: '.(microtime(true) - $start), false);
+		header('X-30-Read: '.(microtime(true) - $start), false);
 		$output = trim($output);
-		if (!preg_match('~<s\d+-'.$nonce.'>\n~', $output)) {
-			$output = '';
+		if (strpos($GLOBALS['mv-ais'], '.da.') !== false) {
+			if (!preg_match('~<s\d+-'.$nonce.'>\n~', $output)) {
+				$output = '';
+			}
 		}
 		if (!empty($output)) {
 			$rv['c'] = $output;
@@ -149,7 +163,15 @@ while ($a === 'grammar') {
 		}
 	}
 
-	$rv['c'] = preg_replace('~<(/?s\d+)-\d+>~', '<$1>', $rv['c']);
+	if (strpos($GLOBALS['mv-ais'], '.da.') !== false) {
+		$rv['c'] = preg_replace('~<(/?s\d+)-\d+>~', '<$1>', $rv['c']);
+	}
+	else {
+		// Hack to show alternatives
+		$rv['c'] = preg_replace('~ <R:([^>]+)>~', ' <R:$1> <AFR:$1>', $rv['c']);
+		// Add s-tags again
+		$rv['c'] = "<s$nonce>\n".$rv['c']."\n</s$nonce>";
+	}
 
 	break;
 }

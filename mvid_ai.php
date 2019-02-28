@@ -55,6 +55,7 @@ function mvid_check_access($mv_session_id) {
 		if (!empty($data['c']) && !empty($data['s']) && !empty($data['h']) && !empty($data['ai']) && $data['c'] === $GLOBALS['-config']['HMAC_SERVICE'] && $data['s'] >= time()) {
 			sort($data['ai']);
 			$s_ais = implode('|', $data['ai']);
+			$GLOBALS['mv-ais'] = $s_ais;
 			$hmac = hmac_sha256_b64("{$data['c']}-{$data['s']}-{$mv_session_id}-{$s_ais}", $secret);
 			if ($hmac === $data['h']) {
 				return true;
@@ -116,6 +117,7 @@ function mvid_check_access($mv_session_id) {
 
 	sort($ais);
 	$s_ais = implode('|', $ais);
+	$GLOBALS['mv-ais'] = $s_ais;
 
 	$data = ['s' => time() + 11*60, 'c' => $GLOBALS['-config']['HMAC_SERVICE'], 'ai' => $ais];
 	$data['h'] = hmac_sha256_b64("{$data['c']}-{$data['s']}-{$mv_session_id}-{$s_ais}", $secret);
@@ -139,6 +141,7 @@ function mvid_locale() {
 	return $locale;
 }
 
+$GLOBALS['mv-ais'] = '';
 $GLOBALS['mv-session-id'] = '';
 if (!empty($_REQUEST['SessionID'])) {
 	$GLOBALS['mv-session-id'] = $_REQUEST['SessionID'];

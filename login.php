@@ -39,10 +39,9 @@ if ($mv_has_access && !empty($_REQUEST['channel'])) {
 		<a href="#" onclick="doLogin();"><img src="static/key.png"></a>
 	</div>
 	<div id="pitch">
-		<a href="https://www.mv-nordic.com/" data-l10n="TXT_PITCH_MVNORDIC"><span>Kontakt MV-Nordic</span> for at prøve programmet gratis eller for information om abonnement.<br>
-		(<em>gælder skoler, institutioner og virksomheder</em>)</a><br><br>
+		<a href="https://vitec-mv.com/" data-l10n="TXT_PITCH_MVNORDIC">…</a><br><br>
 
-		<a href="https://retmig.dk/" data-l10n="TXT_PITCH_GRAMMARSOFT">For privatlicenser, kontakt GrammarSoft på <span>retmig.dk</span></a>
+		<a href="https://retmig.dk/" data-l10n="TXT_PITCH_GRAMMARSOFT">…</a>
 	</div>
 </div>
 
