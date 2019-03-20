@@ -96,7 +96,7 @@ while ($a === 'itw-speak') {
 	die(); // Not break
 }
 
-while ($a === 'grammar') {
+while ($a === 'grammar' || $a === 'danproof') {
 	if (empty($_SERVER['HTTP_HMAC'])) {
 		$rv['e'][] = 'Invalid or empty HMAC header!';
 		break;
