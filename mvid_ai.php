@@ -2,6 +2,34 @@
 
 require_once __DIR__.'/config.php';
 
+// Workaround for PHP <= 7.3; ToDo: Revert when server upgraded
+function setcookie_73($name, $value='', $opts=[]) {
+	$header = 'Set-Cookie: ';
+	$header .= rawurlencode($name) . '=' . rawurlencode($value) . '; ';
+	if (array_key_exists('expires', $opts)) {
+		$header .= 'Expires=' . \gmdate('D, d-M-Y H:i:s T', $opts['expires']) . '; ';
+		$header .= 'Max-Age=' . max(0, (int) ($opts['expires'] - time())) . '; ';
+	}
+	if (!empty($opts['path'])) {
+		$header .= 'Path=' . str_ireplace('%2F', '/', rawurlencode($opts['path'])). '; ';
+	}
+	if (!empty($opts['domain'])) {
+		$header .= 'Domain=' . rawurlencode($opts['domain']) . '; ';
+	}
+	if (!empty($opts['secure'])) {
+		$header .= 'Secure; ';
+	}
+	if (!empty($opts['httponly'])) {
+		$header .= 'HttpOnly; ';
+	}
+	if (!empty($opts['samesite'])) {
+		$header .= 'SameSite=' . rawurlencode($opts['samesite']);
+	}
+
+	header($header, false);
+	$_COOKIE[$name] = $value;
+}
+
 function json_encode_num($v) {
 	return json_encode($v, JSON_NUMERIC_CHECK | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 }
@@ -122,7 +150,7 @@ function mvid_check_access($mv_session_id) {
 	$data = ['s' => time() + 11*60, 'c' => $GLOBALS['-config']['HMAC_SERVICE'], 'ai' => $ais];
 	$data['h'] = hmac_sha256_b64("{$data['c']}-{$data['s']}-{$mv_session_id}-{$s_ais}", $secret);
 	$GLOBALS['access-hmac'] = json_encode_num($data);
-	setcookie('access-hmac', $GLOBALS['access-hmac'], time() + 10*60, '/', '', true);
+	setcookie_73('access-hmac', $GLOBALS['access-hmac'], ['expires' => time() + 10*60, 'path' => '/', 'secure' => true, 'samesite' => 'None']);
 	$GLOBALS['hmac-fresh'] = true;
 
 	return true;
@@ -160,5 +188,5 @@ else if (!empty($_SERVER['HTTP_HMAC'])) {
 }
 
 if (!empty($GLOBALS['mv-session-id'])) {
-	setcookie('mv-session-id', $GLOBALS['mv-session-id'], time()+60*60*24*7, '/', '', true);
+	setcookie_73('mv-session-id', $GLOBALS['mv-session-id'], ['expires' => time()+60*60*24*7, 'path' => '/', 'secure' => true, 'samesite' => 'None']);
 }

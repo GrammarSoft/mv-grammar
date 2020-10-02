@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM amd64/ubuntu:focal
 
 LABEL vendor="Vitec MV" \
 	maintainer="Tino Didriksen <mail@tinodidriksen.com>" \
@@ -23,7 +23,7 @@ RUN apt-get update && \
 	phpenmod json && \
 	phpenmod curl && \
 	a2enmod env && \
-	a2enmod php7.0 && \
+	a2enmod php7.4 && \
 	apt-get clean && \
 	rm -rf /var/lib/apt/lists/* && \
 	rm -rf /var/www/html/.git && \

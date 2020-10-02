@@ -40,8 +40,8 @@ while ($a === 'keepalive') {
 }
 
 while ($a === 'logout') {
-	setcookie('mv-session-id', '', time() + 86400, '/', '', true);
-	setcookie('access-hmac', '', time() + 86400, '/', '', true);
+	setcookie_73('mv-session-id', '', ['expires' => time() + 86400, 'path' => '/', 'secure' => true, 'samesite' => 'None']);
+	setcookie_73('access-hmac', '', ['expires' => time() + 86400, 'path' => '/', 'secure' => true, 'samesite' => 'None']);
 	$rv['logout'] = true;
 	break;
 }
