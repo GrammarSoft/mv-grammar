@@ -1,6 +1,4 @@
 # Vitec MV Grammateket Frontend
-Requires at least PHP 7.0, but at most 7.1. Crashes with Azure's 7.2 for some reason.
-
 The frontend is stateless and can be killed or launched at will. Because of the sensitive information stored in the environment, there is no phpinfo() debug file.
 
 The frontend includes a health check in the form of selfcheck.php, which will send a random sentence to the backend and report back with a non-error status code if it's working as expected.
@@ -25,8 +23,8 @@ The frontend includes a health check in the form of selfcheck.php, which will se
 * `HMAC_SERVICE`	HMAC field to distinguish which service it pertains to; defaults to *grammar*
 * `MV_SIGNON_HOST`	Defaults to *signon.vitec-mv.com*
 * `MV_SIGNON_API_HOST`	Defaults to *mvidsignonapi.vitec-mv.com*
-* `MV_IW_DICT_HOST`	Defaults to *online-mvid-dev.intowords.com*
-* `MV_IW_ONLINE_HOST`	Defaults to *online-mvid-dev.intowords.com*
+* `MV_IW_DICT_HOST`	Defaults to *dictionary.intowords.com*
+* `MV_IW_ONLINE_HOST`	Defaults to *online.intowords.com*
 * `MV_TEST`	If set to *1*, the `MV_*_HOST` settings default to their testing equivalents instead; defaults to *0*
 
 ## Embedded Dependencies
