@@ -52,7 +52,7 @@ let mv_has_access = <?=($mv_has_access ? 'true' : 'false');?>;
 let channel = <?=json_encode_num($_REQUEST['channel']);?>;
 
 function doLogin() {
-	let uri = 'https://signon.vitec-mv.com/?returnUrl=';
+	let uri = 'https://<?=$GLOBALS['-config']['MV_SIGNON_HOST'];?>/?returnUrl=';
 	let ret = window.location.origin + window.location.pathname + '?channel=' + channel;
 	if (window.location.search.indexOf('embedded=1') !== -1) {
 		ret += '&popup=1';

@@ -1,6 +1,6 @@
 <?php
 
-$vars = ['DEBUG_KEY', 'GRAMMAR_DA_HOST', 'GRAMMAR_DA_PORT', 'GRAMMAR_NB_HOST', 'GRAMMAR_NB_PORT', 'GRAMMAR_SV_HOST', 'GRAMMAR_SV_PORT', 'COMMA_HOST', 'COMMA_PORT', 'COMMA_URL', 'MVID_SERVICE', 'MVID_SECRET', 'MVID_ACCESS_IDS', 'CADUCEUS_URL', 'CADUCEUS_SECRET', 'GOOGLE_AID'];
+$vars = ['DEBUG_KEY', 'GRAMMAR_DA_HOST', 'GRAMMAR_DA_PORT', 'GRAMMAR_NB_HOST', 'GRAMMAR_NB_PORT', 'GRAMMAR_SV_HOST', 'GRAMMAR_SV_PORT', 'COMMA_HOST', 'COMMA_PORT', 'COMMA_URL', 'MVID_SERVICE', 'MVID_SECRET', 'MVID_ACCESS_IDS', 'CADUCEUS_URL', 'CADUCEUS_SECRET', 'GOOGLE_AID', 'HMAC_SERVICE', 'MV_SERVICES_HOST', 'MV_SIGNON_HOST', 'MV_SIGNON_API_HOST', 'MV_IW_DICT_HOST', 'MV_IW_ONLINE_HOST', 'MV_TEST'];
 foreach ($vars as $var) {
 	$env = getenv($var);
 	if (empty($_ENV[$var])) {
@@ -25,6 +25,25 @@ $GLOBALS['-config']['MVID_ACCESS_IDS'] = $_ENV['MVID_ACCESS_IDS'] ?? 'product.we
 $GLOBALS['-config']['CADUCEUS_URL'] = $_ENV['CADUCEUS_URL'] ?? 'ws://localhost:3000/';
 $GLOBALS['-config']['CADUCEUS_SECRET'] = $_ENV['CADUCEUS_SECRET'] ?? gethostname();
 $GLOBALS['-config']['GOOGLE_AID'] = $_ENV['GOOGLE_AID'];
-$GLOBALS['-config']['HMAC_SERVICE'] = 'grammar';
+$GLOBALS['-config']['HMAC_SERVICE'] = $_ENV['HMAC_SERVICE'] ?? 'grammar';
+
+$GLOBALS['-config']['MV_TEST'] = $_ENV['MV_TEST'] ?? false;
+if (!empty($GLOBALS['-config']['MV_TEST'])) {
+	$GLOBALS['-config']['MV_SIGNON_HOST'] = 'signon.vitec-mv.com';
+	$GLOBALS['-config']['MV_SIGNON_API_HOST'] = 'mvidsignonapi.vitec-mv.com';
+	$GLOBALS['-config']['MV_IW_DICT_HOST'] = 'online-mvid-dev.intowords.com';
+	$GLOBALS['-config']['MV_IW_ONLINE_HOST'] = 'online-mvid-dev.intowords.com';
+}
+else {
+	$GLOBALS['-config']['MV_SIGNON_HOST'] = 'signon.vitec-mv.com';
+	$GLOBALS['-config']['MV_SIGNON_API_HOST'] = 'mvidsignonapi.vitec-mv.com';
+	$GLOBALS['-config']['MV_IW_DICT_HOST'] = 'dictionary.intowords.com';
+	$GLOBALS['-config']['MV_IW_ONLINE_HOST'] = 'online.intowords.com';
+}
+
+$GLOBALS['-config']['MV_SIGNON_HOST'] = $_ENV['MV_SIGNON_HOST'] ?? $GLOBALS['-config']['MV_SIGNON_HOST'];
+$GLOBALS['-config']['MV_SIGNON_API_HOST'] = $_ENV['MV_SIGNON_API_HOST'] ?? $GLOBALS['-config']['MV_SIGNON_API_HOST'];
+$GLOBALS['-config']['MV_IW_DICT_HOST'] = $_ENV['MV_IW_DICT_HOST'] ?? $GLOBALS['-config']['MV_IW_DICT_HOST'];
+$GLOBALS['-config']['MV_IW_ONLINE_HOST'] = $_ENV['MV_IW_ONLINE_HOST'] ?? $GLOBALS['-config']['MV_IW_ONLINE_HOST'];
 
 $GLOBALS['-config']['MVID_ACCESS_IDS'] = explode(',', trim(preg_replace('[,+]', ',', preg_replace('~[\s\r\n\t]+~', ',', $GLOBALS['-config']['MVID_ACCESS_IDS'])), ','));

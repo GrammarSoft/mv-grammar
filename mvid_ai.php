@@ -46,7 +46,7 @@ function mvid_keepalive($mv_session_id) {
 	$stamp = time();
 
 	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, 'https://mvidsignonapi.vitec-mv.com/keepalive');
+	curl_setopt($ch, CURLOPT_URL, 'https://'.$GLOBALS['-config']['MV_SIGNON_API_HOST'].'/keepalive');
 	curl_setopt($ch, CURLOPT_HEADER, false);
 	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -91,7 +91,7 @@ function mvid_check_access($mv_session_id) {
 		}
 	}
 
-	$uri = 'https://mvidsignonapi.vitec-mv.com/accessidentifiers';
+	$uri = 'https://'.$GLOBALS['-config']['MV_SIGNON_API_HOST'].'/accessidentifiers';
 	$stamp = time();
 	$body = json_encode_num($GLOBALS['-config']['MVID_ACCESS_IDS']);
 	$hash = base64_encode(hash_hmac('sha256', "{$body}PUT{$uri}{$stamp}", $secret, true));

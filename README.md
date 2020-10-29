@@ -23,6 +23,11 @@ The frontend includes a health check in the form of selfcheck.php, which will se
 * `CADUCEUS_SECRET`	Caduceus secret; defaults to the server's hostname
 * `GOOGLE_AID`	Google Analytics Property ID
 * `HMAC_SERVICE`	HMAC field to distinguish which service it pertains to; defaults to *grammar*
+* `MV_SIGNON_HOST`	Defaults to *signon.vitec-mv.com*
+* `MV_SIGNON_API_HOST`	Defaults to *mvidsignonapi.vitec-mv.com*
+* `MV_IW_DICT_HOST`	Defaults to *online-mvid-dev.intowords.com*
+* `MV_IW_ONLINE_HOST`	Defaults to *online-mvid-dev.intowords.com*
+* `MV_TEST`	If set to *1*, the `MV_*_HOST` settings default to their testing equivalents instead; defaults to *0*
 
 ## Embedded Dependencies
 This repo includes copies of:

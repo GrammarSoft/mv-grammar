@@ -59,7 +59,7 @@ function itw_dict($sessionid, $text) {
 			],
 		];
 
-	$rv = itw_curl('https://dictionary.intowords.com/dictservice/DictionaryService/jsonwsp', $rq);
+	$rv = itw_curl('https://'.$GLOBALS['-config']['MV_IW_DICT_HOST'].'/dictservice/DictionaryService/jsonwsp', $rq);
 	if ($rv === false) {
 		header('X-ITW-Dict: CURL error');
 		return false;
@@ -86,7 +86,7 @@ function itw_dict($sessionid, $text) {
 			],
 		];
 
-	return itw_curl('https://dictionary.intowords.com/dictservice/DictionaryService/jsonwsp', $rq);
+	return itw_curl('https://'.$GLOBALS['-config']['MV_IW_DICT_HOST'].'/dictservice/DictionaryService/jsonwsp', $rq);
 }
 
 function itw_get_dicts($sessionid) {
@@ -99,7 +99,7 @@ function itw_get_dicts($sessionid) {
 			],
 		];
 
-	$rv = itw_curl('https://dictionary.intowords.com/dictservice/DictionaryService/jsonwsp', $rq);
+	$rv = itw_curl('https://'.$GLOBALS['-config']['MV_IW_DICT_HOST'].'/dictservice/DictionaryService/jsonwsp', $rq);
 	if ($rv === false) {
 		header('X-ITW-GetDicts: CURL error');
 		return false;
@@ -126,7 +126,7 @@ function itw_search_dict($sessionid, $text, $dict=1) {
 			],
 		];
 
-	return itw_curl('https://dictionary.intowords.com/dictservice/DictionaryService/jsonwsp', $rq);
+	return itw_curl('https://'.$GLOBALS['-config']['MV_IW_DICT_HOST'].'/dictservice/DictionaryService/jsonwsp', $rq);
 }
 
 function itw_speak($sessionid, $text) {
@@ -142,5 +142,5 @@ function itw_speak($sessionid, $text) {
 			],
 		];
 
-	return itw_curl('https://online.intowords.com/intowords-v3/tts/jsonwsp', $rq);
+	return itw_curl('https://'.$GLOBALS['-config']['MV_IW_ONLINE_HOST'].'/intowords-v3/tts/jsonwsp', $rq);
 }
